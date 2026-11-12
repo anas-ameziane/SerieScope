@@ -10,20 +10,15 @@ async function fetchData() {
         const response = await fetch("https://api.tvmaze.com/shows?page=0");
         if (!response.ok) throw new Error("Erreur lors du chargement des séries");
         seriesInitiales = await response.json();
+        seriesInitiales.slice(0, 20)
         grnrefil();
         appliquerFiltres();
+        
+console.log(seriesInitiales.slice(0,20))
     } catch (error) {
         console.error(error);
     }
 }
-// 2. Remplir les genres automatiquement
-// function grnrefil() {
-//     const valeurActuelle = filtre.value;
-//     const genres = [...new Set(seriesInitiales.flatMap(s => s.genres))];
-//     filtre.replaceChildren(new Option("Tous les genres", ""));
-//     genres.forEach(genre => {filtre.add(new Option( genre));});
-//     filtre.value = genres.includes(valeurActuelle) ? valeurActuelle : "";
-// }
 function grnrefil() {
     const valeurActuelle = filtre.value;
     const genres = new Set();
@@ -45,6 +40,7 @@ function appliquerFiltres() {
     afficherSeries(resultat);
 }
 // 4. Afficher les séries
+
 function afficherSeries(donnees) {
     Cartes.replaceChildren();
     if (donnees.length === 0) {
@@ -52,13 +48,14 @@ function afficherSeries(donnees) {
         return;
     }
     Vide.hidden = true;
-   for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
+        console.log(i)
+        const serie = donnees[i];
         const card = document.createElement("article");
         const imageContainer = document.createElement("div");
         const titre = document.createElement("h3");
         const genresContainer = document.createElement("div");
         const description = document.createElement("p");
-            const span = document.createElement("span");
         card.className = "bg-[#18181b] border border-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between p-4 space-y-4";
         if (serie.image && serie.image.medium) {
             const image = document.createElement("img");
@@ -71,6 +68,7 @@ function afficherSeries(donnees) {
         titre.className = "text-xl font-bold text-white tracking-tight";
         genresContainer.className = "flex flex-wrap gap-1.5";
         serie.genres.forEach(genre => {
+            const span = document.createElement("span");
             span.textContent = genre;
             span.className = "bg-gray-800 text-gray-300 text-xs px-2.5 py-1 rounded-full border border-gray-700";
             genresContainer.appendChild(span);
@@ -83,8 +81,9 @@ function afficherSeries(donnees) {
         }
         card.append(imageContainer, titre, genresContainer, description);
         Cartes.appendChild(card);
-    };
+    }
 }
+
 // 5. Ajouter une série
 form.addEventListener("submit", (e) => {
     e.preventDefault();
