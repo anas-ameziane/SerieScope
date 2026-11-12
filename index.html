@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr" class="dark">
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sériescope - Bureau</title>
+  <link rel="stylesheet" href="./css/output.css">
+  <script type="module" src="/js/script.js"></script>
+</head>
+
+<body
+  class="bg-[#121212] text-gray-100 font-sans min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+  <a class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:text-black focus:z-50"
+    href="#contenu">Aller au contenu</a>
+
+  <!-- Header -->
+  <header class="bg-[#121212] border-b border-gray-800 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a class="flex items-center gap-3 text-xl font-extrabold tracking-tight text-white" href="#"
+        aria-label="Sériescope — Gestion des séries">
+        <div class="bg-gray-800 p-2 rounded-xl border border-gray-700 flex items-center justify-center"><i
+            class="fa-solid fa-clapperboard text-gray-200"></i></div>
+        <span>Sériescope</span>
+      </a>
+      <nav class="hidden md:flex gap-2" aria-label="Navigation principale">
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="contenu" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow space-y-10">
+
+    <!-- Page Intro -->
+    <section class="space-y-2">
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">Explore les séries TV</h1>
+      <p class="text-gray-400 text-base">Retrouve tes séries préférées et enrichis le catalogue.</p>
+    </section>
+
+    <!-- Form Section -->
+    <section class="bg-[#18181b] border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-800 pb-5 mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-white">Ajouter une série</h2>
+        </div>
+        <span class="text-xs text-gray-400">Les champs marqués d'un <span class="text-blue-500">*</span> sont
+          obligatoires.</span>
+      </div>
+
+      <form id="formulaire-serie" novalidate class="space-y-6">
+        <input type="hidden" id="serie-id" name="id" value="" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+          <!-- Nom de la série -->
+          <div class="flex flex-col">
+            <label for="nom" class="mb-2 text-xs font-bold text-gray-300">Nom de la série <span
+                class="text-blue-500">*</span></label>
+            <input id="nom" name="nom" type="text" placeholder="Ex. The Bear" required aria-describedby="erreur-nom"
+              class="w-full h-11 px-3 bg-[#121212] border border-gray-800 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" />
+            <small id="erreur-nom" class="text-red-400 text-xs mt-1 empty:hidden"></small>
+          </div>
+
+          <!-- Genres -->
+          <div class="flex flex-col">
+            <label for="genres" class="mb-2 text-xs font-bold text-gray-300">Genre(s) <span
+                class="text-blue-500">*</span> <span class="font-normal text-gray-500">séparés par des
+                virgules</span></label>
+            <input id="genres" name="genres" type="text" placeholder="Ex. Drame, Comédie" required
+              aria-describedby="erreur-genres"
+              class="w-full h-11 px-3 bg-[#121212] border border-gray-800 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" />
+            <small id="erreur-genres" class="text-red-400 text-xs mt-1 empty:hidden"></small>
+          </div>
+
+          <!-- Description (Optionnelle) -->
+          <div class="flex flex-col sm:col-span-2">
+            <label for="description" class="mb-2 text-xs font-bold text-gray-300">Description <span
+                class="font-normal text-gray-500">facultative</span></label>
+            <textarea id="description" name="description" rows="3" placeholder=" Résume la série en quelques mots..."
+              aria-describedby="erreur-description"
+              class="w-full p-3 bg-[#121212] border border-gray-800 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"></textarea>
+            <small id="erreur-description" class="text-red-400 text-xs mt-1 empty:hidden"></small>
+          </div>
+
+        </div>
+
+                <button id="bouton-ajouter" type="submit"
+                  class="h-11 px-5 rounded-lg font-bold text-xs text-black bg-[#EEEEEE] hover:bg-white transition-all flex items-center gap-2">
+                  <i class="fa-solid fa-plus"></i> Ajouter la série
+                </button>
+
+
+              
+        </div>
+      </form>
+    </section>
+
+    <!-- Inventory Section -->
+    <div>
+      <h2 class="text-xl font-bold text-white">Catalogue des séries</h2>
+      <p class="text-xs text-gray-400 mt-0.5">Recherche par nom ou explore un genre.</p>
+    </div>
+    <section class="bg-[#18181b] border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+      <div
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-gray-800 pb-5">
+
+      </div>
+
+      <!-- Toolbar -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
+        <div class="flex flex-col">
+          <label for="recherche" class="mb-2 text-xs font-bold text-gray-300">Recherche</label>
+          <input id="recherche" type="search" placeholder="Ex. Breaking Bad"
+            class="h-11 px-3 bg-[#121212] border border-gray-800 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+        </div>
+        <div class="flex flex-col">
+          <label for="filtre-genre" class="mb-2 text-xs font-bold text-gray-300">Genre</label>
+          <select id="filtre-genre"
+            class="h-11 px-3 bg-[#121212] border border-gray-800 rounded-lg text-sm text-white focus:outline-none focus:border-blue-500">
+            <option value="">Tous les genres</option>
+            <option value="Drame">Drame</option>
+            <option value="Comédie">Comédie</option>
+            <option value="Action">Action</option>
+            <option value="Thriller">Thriller</option>
+          </select>
+        </div>
+        <button id="reinitialiser-filtres" type="button"
+          class="h-11 px-4 border border-gray-700 rounded-lg font-bold text-xs text-gray-300 bg-transparent hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+          <i class="fa-solid fa-rotate-right"></i> Réinitialiser
+        </button>
+      </div>
+
+      <p id="message-catalogue" class="text-sm font-medium" role="status" aria-live="polite"></p>
+
+      <!-- Table / Grid Container -->
+
+
+      <div id="etat-vide" class="py-12 text-center text-gray-500 space-y-1" hidden>
+        <h3 class="text-base font-bold text-white">Aucune série à afficher</h3>
+        <p class="text-xs text-gray-400">Ajoutez une série ou modifiez vos critères de recherche.</p>
+      </div>
+    </section>
+    <div id="ticketList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 border-t border-gray-800 gap-2">
+    <span class="font-bold text-gray-300">Sériescope</span>
+    <p class="m-0">Explore, découvre et gère tes séries préférées facilement.</p>
+  </footer>
+
+</body>
+
+</html>
