@@ -1,4 +1,5 @@
 let seriesInitiales = [];
+let a = 0
 const Cartes = document.getElementById("ticketList");
 const Vide = document.getElementById("etat-vide");
 const form = document.getElementById("formulaire-serie");
@@ -9,12 +10,15 @@ async function fetchData() {
     try {
         const response = await fetch("https://api.tvmaze.com/shows?page=0");
         if (!response.ok) throw new Error("Erreur lors du chargement des séries");
-        seriesInitiales = await response.json();
-        seriesInitiales.slice(0, 20)
+        seriesInitiales = await response.json()
         grnrefil();
         appliquerFiltres();
         
-console.log(seriesInitiales.slice(0,20))
+    let seriesList = [];
+    for (let i = 0; i < 20; i++){
+       a++
+        seriesList.push(serie);
+}
     } catch (error) {
         console.error(error);
     }
@@ -49,7 +53,9 @@ function afficherSeries(donnees) {
     }
     Vide.hidden = true;
     for (let i = 0; i < 20; i++) {
-        console.log(i)
+        
+        document.getElementById("total").textContent = "Total de séries : " + seriesInitiales.length;
+        
         const serie = donnees[i];
         const card = document.createElement("article");
         const imageContainer = document.createElement("div");
@@ -116,5 +122,18 @@ Reset.addEventListener("click", () => {
     filtre.value = "";
     appliquerFiltres();
 });
+const place = document.getElementById("pgplace")
+function pg (){
+for (let i = 0; i < array.length; i++) {
+    
+const btn = document.createElement("button");
+    
+}
+
+
+}
 // 9. Démarrer le programme
+console.log(seriesInitiales.length)
+console.log(seriesInitiales)
+document.getElementById("total").textContent = "Total de séries : " + seriesInitiales.length;
 fetchData();
